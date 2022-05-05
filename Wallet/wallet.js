@@ -6,7 +6,7 @@ class Wallet {
   constructor(secret) {
     this.keyPair = ChainUtil.genKeyPair(secret);
     this.publicKey = this.keyPair.getPublic("hex");
-    this.privateKey = ChainUtil.getPrivateKey(this.keyPair.getSecret("hex"));
+    this.timestamp = Date.now();
     this.balance = INITIAL_BALANCE;
   }
 
@@ -16,9 +16,11 @@ class Wallet {
           balance  : ${this.balance}
           keyPair  : ${this.keyPair}`;
   }
+
   sign(dataHash) {
     return this.keyPair.sign(dataHash).toHex();
   }
+
   createTransaction(to, amount, type, blockchain, transactionPool) {
     this.balance = this.getBalance(blockchain);
     if (amount > this.balance) {

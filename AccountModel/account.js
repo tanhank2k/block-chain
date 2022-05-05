@@ -6,6 +6,7 @@ class Account {
         this.balance = {
           "5aad9b5e21f63955e8840e8b954926c60e0e2d906fdbc0ce1e3afe249a67f614": 1000
         };
+        this.history = [];
       }
   
     initialize(address) {
@@ -40,6 +41,7 @@ class Account {
       let from = transaction.input.from;
       let to = transaction.output.to;
       this.transfer(from, to, amount);
+      this.history.push(transaction);
     }
     transferFee(block, transaction) {
         let amount = transaction.output.fee;
@@ -47,6 +49,14 @@ class Account {
         let to = block.validator;
         this.transfer(from, to, amount);
       }
+    getHistoryTransaction(publicKey){
+        this.history.map(transaction => {
+          console.log(transaction.input.from);
+          console.log(transaction.output.to);
+          console.log(publicKey);
+        })
+        return this.history.filter(transaction => transaction.input.from == publicKey || transaction.output.to == publicKey);
+    }
   }
   
   module.exports = Account;

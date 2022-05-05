@@ -63,6 +63,10 @@ app.post("/ico/balance-of", (req, res) => {
   res.json({ balance: blockchain.getBalance(req.body.publicKey) });
 });
 
+app.post("/ico/history-transaction", (req, res) => {
+  res.json({ history: blockchain.getHistoryTransaction(req.body.publicKey) });
+});
+
 app.listen(HTTP_PORT, () => {
   console.log(`Listening on port ${HTTP_PORT}`);
 });

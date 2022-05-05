@@ -139,6 +139,10 @@ class Blockchain {
     });
   }
 
+  getHistoryTransaction(publicKey) {
+    return this.accounts.getHistoryTransaction(publicKey);
+  }
+
   resetState() {
     this.chain = [Block.genesis()];
     this.stakes = new Stake();
